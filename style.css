@@ -1,0 +1,80 @@
+body{
+    background-color: #4b4949;
+    margin: 50px;
+    font-family: sans-serif;
+}
+.fightarea{
+    display: flex;
+    margin-top: 80px;
+    gap: 50px; 
+}
+
+#char,
+#monster{
+    flex: 1;
+}
+
+.lifebar{
+    height: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-bottom: -75px;
+
+}
+.lifebar .bar{
+    height: inherit;
+    background-color: red;
+    border-radius: 5px;
+}
+
+.name{
+    display: inline-block;
+    padding: 9px;
+    background-color: rgb(226, 214, 43);
+    color: rgb(5, 94, 64);
+    font-size: 18px;
+    border: 2px dashed;
+}
+.log{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    text-align: center;
+    line-height: 35px;
+    font-weight: bold;
+    color: aliceblue;
+    margin-top: 100px;
+    border: 1px dotted #999;
+    height: 400px;
+    overflow-y: scroll; 
+}
+
+button {
+    margin-top: 25px;
+    border: 2px solid rgb(20, 92, 102);
+    background-color: rgb(175, 231, 194);
+    border-radius: 25%;
+    color: white;
+    padding: 5px;
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+}
+
+@media (max-width: 420px){
+    .fightarea{
+        gap: 20px;
+    }
+    .name{
+        font-size: 17px;
+    }
+    .lifebar .bar{
+        margin-top: 20px;
+    }
+    button{
+        display: flex;
+        margin-left:25px;
+    }
+   
+}
