@@ -1,129 +1,101 @@
-// criamos objeto padrão
-
 const defaultCharacter = {
-    name: '',
-    life: 1,
-    maxLife: 1,
-    attack: 0,
-    defense: 0 
+    name:'',
+    life:1,
+    maxLife:1,
+    attack:0,
+    defense:0
 }
 
-// class modo funcional 
-const createKinight = (name) =>{
-    return {
+const createKnight = (name)=>{
+    return{
         ...defaultCharacter,
         name,
         life:100,
         maxLife:100,
-        attack:10,
-        defense:9
+        attack:40,
+        defense:25
     }
 }
 
-const createSorcerer = (name) => {
+const crateSorcerer = (name) =>{
     return{
         ...defaultCharacter,
         name,
-        life:80,
-        maxLife:80,
-        attack:14,
-        defense:3
+        life:70,
+        maxLife:70,
+        attack:20,
+        defense:30
     }
 }
 
-
-const createLittleMonter = () =>{
-    return {
-        ...defaultCharacter,
-        name: "LittleMonster",
-        life: 40,
-        maxLife: 40,
-        attack: 7,
-        defense: 4
-    }    
-}
-
-const bigMonster = () =>{
+const createLittleMonster = (name) =>{
     return{
         ...defaultCharacter,
-        name: "BigMonster",
-        life: 130,
-        maxLife: 130,
-        attack: 18,
-        defense: 5 
+        name,
+        life:40,
+        maxLife:40,
+        attack:4,
+        defense:4
+    }
+}
+const createBigMonster = (name) =>{
+    return{
+        ...defaultCharacter,
+        name,
+        life:120,
+        maxLife:120,
+        attack:40,
+        defense:16
     }
 }
 
-// CENÁRIO --- criamos os objetos para manipular os elementosHTML.
 const stage = {
-    fighter1: null,
-    fighter2:null,
-    fighterEl1:null,
-    fighterEl2:null,
 
-    // FUNÇÕES --- criamos uma função para manipularmos os objeto do nosso cenário . passando obj para parametro da function
+    f1: null,
+    f2: null,
+    fEl1: null,
+    fEl2: null,
+  
+  start(f1,f2,fEl1,fEl2){
+    this.f1 = f1,
+    this.f2 = f2,
+    this.fEl1 = fEl1,
+    this.fEl2 = fEl2
 
-    start(fighter1,fighter2,fighterEl1,fighterEl2){
-        this.fighter1 = fighter1;
-        this.fighter2 = fighter2;
-        this.fighterEl1 = fighterEl1;
-        this.fighterEl2 = fighterEl2;
-        
-        this.fighterEl1.querySelector('.attackButton').addEventListener('click', () => this.doAttack(this.fighter1 , this.fighter2));
-        this.fighterEl2.querySelector('.attackButton').addEventListener('click', () => this.doAttack(this.fighter2 , this.fighter1));
 
-        this.update();
-    },
-    update(){
-        //Fighter1
-        this.fighterEl1.querySelector('.name').innerHTML = `${this.fighter1.name} - ${this.fighter1.life.toFixed(1)} HP`;
-        let f1Pct = (this.fighter1.life / this.fighter1.maxLife)*100;
-        this.fighterEl1.querySelector('.bar').style.width = `${f1Pct}%`;
+    this.fEl1.querySelector('.attackButton').addEventListener('click',() => this.doAttack(this.f1,this.f2))
+    this.fEl2.querySelector('.attackButton').addEventListener('click',() => this.doAttack(this.f2,this.f1))
 
-        //Fighter2
-        this.fighterEl2.querySelector('.name').innerHTML = `${this.fighter2.name} - ${this.fighter2.life.toFixed(1)} HP`;
-        let f2Pct = (this.fighter2.life / this.fighter2.maxLife)*100;
-        this.fighterEl2.querySelector('.bar').style.width = `${f2Pct}%`;
-    },
+    this.update();
+  },
 
-    doAttack(attacking , attacked){
-        if(attacking.life <= 0 || attacked.life <= 0 ){
-            log.addMensagem('Oponete sem nenhum sinal de vida')
-            return;
-        }
+  update(){
 
-        let factorAttack = (Math.random()*2).toFixed(2);
-        let factorDefense = (Math.random()*2).toFixed(2);
-        let actualAttack = attacking.attack * factorAttack;
-        let actualDefense = attacked.defense * factorDefense;
+      this.fEl1.querySelector('.name').innerHTML = `${this.f1.name} - ${this.f1.life.toFixed(1)}HP`
+      let f1pct =  (this.f1.life / this.f1.maxLife)* 100;
+      this.fEl1.querySelector('.bar').style.width = `${f1pct}%`
 
-        if(actualAttack > actualDefense){
-            attacked.life -= actualAttack;
-            attacked.life = attacked.life < 0 ? 0 : attacked.life;
-            log.addMensagem(`${attacking.name} causou ${actualAttack.toFixed(2)} de danos em ${attacked.name}`)
-        }else{
-            log.addMensagem(`${attacked.name} conseguiu defender...`)
-        }
-        this.update();
+      this.fEl2.querySelector('.name').innerHTML = `${this.f2.name} - ${this.f2.life.toFixed(1)}HP`
+      let f2pct = (this.f2.life / this.f2.maxLife)* 100;       
+      this.fEl2.querySelector('.bar').style.width = `${f2pct}%`
+
+  },
+
+  doAttack(attacking , attacked){
+    if(attacking.life <=0 || attacked.life <=0){
+        console.log('Oponente sem sinal de vida...');
+        return
     }
 
-}
+    let facAttack = (Math.radom() * 2).toFixed(2);
+    let facDefense = (Math.radom() * 2).toFixed(2);
 
-// criamos objetos e funcoes fora do stage , joga as mensagens dentro do array , uma vez que o  eventos de click for ativado
 
-const log = {
-    list: [],
-    addMensagem(msg){
-        this.list.push(msg);
-        this.render();
-    },
-    render(){
-        const logEl = document.querySelector('.log')
-        logEl.innerHTML = '';
+    let atualAttack = attacking.atack * facAttack;
+    console.log(atualAttack)
 
-        for(let i in this.list){
-            logEl.innerHTML += `<li>${this.list[i]}</li>` //irá concatenar dentro do log tag lista..
-        }
 
-    }
+    this.update();
+  }
+
 }
